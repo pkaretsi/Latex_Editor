@@ -1,5 +1,6 @@
 package editor.model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,6 +40,8 @@ public class VolatileVersionStrategy implements VersionStrategy {
 				doc = (Document)in.readObject();
 				in.close();
 				file.close();
+				File f = new File(filename);
+				f.delete(); //delete files from disk
 				entireHistory.add(doc);
 			}
 			catch(IOException ex){ 
