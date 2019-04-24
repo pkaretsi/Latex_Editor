@@ -18,6 +18,18 @@ public class CommandFactory {
 		else if(commandID.equalsIgnoreCase("ChangeVersionsStrategy")){
 			return new ChangeVersionStrategyCommand(controller);
 		}
+		else if(commandID.equalsIgnoreCase("DisableVersionsManagement")){
+			return new DisableVersionManagementCommand(controller);
+		}
+		else if(commandID.equalsIgnoreCase("Rollback")){
+			return new RollbackToPreviousVersionCommand(controller);
+		}
+		else if(commandID.equalsIgnoreCase("Save")){
+			return new SaveCommand(controller);
+		}
+		else if(commandID.equalsIgnoreCase("Load")){
+			return new LoadCommand(controller);
+		}
 		return null;
 	}
 }
