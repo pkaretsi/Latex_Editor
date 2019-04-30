@@ -84,11 +84,11 @@ public class LatexEditorController {
 	public String enact(String command){
 		guiAction = command;
 		String tokens[] = command.split(" ");
-		System.out.println(tokens[0]);
+		System.out.println("GUI " + guiAction);
 		if(commands.get(tokens[0])!= null){
 			commands.get(tokens[0]).execute();
 		}
-		//System.out.println("@@@\n"+stringReturned);
+		//System.out.println(currentDocument.getContents());
 		return stringReturned;
 	}
 }

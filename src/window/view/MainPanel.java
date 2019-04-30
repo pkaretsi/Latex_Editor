@@ -118,23 +118,32 @@ public class MainPanel extends JPanel{
 	    fl_controlPanel.setAlignment(FlowLayout.LEFT);
 	    controlPanel.setLayout(fl_controlPanel);
 	    p.add(controlPanel, BorderLayout.NORTH);
-	    /*JButton editButton = new JButton("Edit");
-	    editButton.setFont(new Font("Calibri", Font.PLAIN, 14));
+	    //JButton editButton = new JButton("Edit");
+	    //editButton.setFont(new Font("Calibri", Font.PLAIN, 14));
 	    JButton saveButton = new JButton("Save");
 	    saveButton.setFont(new Font("Calibri", Font.PLAIN, 14));
 	    JButton rollbackButton = new JButton("Rollback");
-	    rollbackButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-	    
-	    JButton createButton = new JButton("Create");
-	    createButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-	    controlPanel.add(createButton);
+	    rollbackButton.setFont(new Font("Calibri", Font.PLAIN, 14));	    
 	    JButton loadButton = new JButton("Load");
 	    loadButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-	    loadButton.setHorizontalAlignment(SwingConstants.LEFT);
+	    
+	    JButton cancelRollbackButton = new JButton("Cancel Rollback");
+	    rollbackButton.setFont(new Font("Calibri", Font.PLAIN, 14));	
+	    cancelRollbackButton.setActionCommand("Rollback Cancel");
+	    //JButton createButton = new JButton("Create");
+	    //createButton.setFont(new Font("Calibri", Font.PLAIN, 14));
+	    //controlPanel.add(createButton);
+	    
+	    //loadButton.setHorizontalAlignment(SwingConstants.LEFT);
+	    //controlPanel.add(editButton);
 	    controlPanel.add(loadButton);
-	    controlPanel.add(editButton); 
 	    controlPanel.add(saveButton);
-	    controlPanel.add(rollbackButton); */
+	    controlPanel.add(rollbackButton);
+	    controlPanel.add(cancelRollbackButton);
+	    rollbackButton.addActionListener(new ControlActionListener(welcomeW));
+	    cancelRollbackButton.addActionListener(new ControlActionListener(welcomeW));
+	    //saveButton.addActionListener(new ControlActionListener(welcomeW));
+	    //loadButton.addActionListener(new ControlActionListener(welcomeW));
 	    JCheckBox versionButton = new JCheckBox("Enable Version Tracking Mechanism");
 	    versionButton.setActionCommand("Enable VersionStrategy"); 
 	    versionButton.setSelected(false);
@@ -170,13 +179,15 @@ public class MainPanel extends JPanel{
 		
 		@Override
 		public void itemStateChanged(ItemEvent e) {
+			String action;
 			if (e.getStateChange() == ItemEvent.DESELECTED){
 				group.clearSelection();
+				action = "DisableVersionsManagement ";
 			}
 			else{
 	        	vButton.setSelected(true);
+	        	action = "EnableVersionsManagement ";
 			}
-			String action = "EnableVersionsManagement " + e.getStateChange();
 			//e.getStateChange = 1 refers to enabled and e.getStateChange = 2 refers to disabled  
 			welcomeW.getController().enact(action);
 		}

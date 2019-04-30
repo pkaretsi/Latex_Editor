@@ -11,15 +11,19 @@ public class EnableVersionManagementCommand implements Command {
 	
 	@Override
 	public void execute() {
-		String action = controller.getGuiAction();
-		String tokens[] = action.split(" ");
+		//String action = controller.getGuiAction();
+		//String tokens[] = action.split(" ");
 		//e.getStateChange = 1 refers to enabled and e.getStateChange = 2 refers to disabled
 		//first enabled --> by default volatile strategy
-		if(tokens[1].equals("1")){
-			controller.getVersionManager().enable();
-			VersionStrategy vs = controller.getVersionFactory().createStrategy("Volatile");
-			controller.getVersionManager().setStrategy(vs);
+		//if(tokens[1].equals("1")){
+		controller.getVersionManager().enable();
+		VersionStrategy vs = controller.getVersionFactory().createStrategy("Volatile");
+		VersionStrategy previousStrategy = controller.getVersionManager().getStrategy();
+		if (previousStrategy != null){
+			vs.getEntireHistory().addAll(previousStrategy.getEntireHistory());
 		}
+		controller.getVersionManager().setStrategy(vs);
+		//}
 		controller.setStringReturned(controller.getCurrentDocument().getContents());
 	}
 

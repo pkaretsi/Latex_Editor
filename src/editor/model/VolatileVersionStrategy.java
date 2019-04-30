@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public class VolatileVersionStrategy implements VersionStrategy {
 
 	ArrayList<Document> entireHistory = new ArrayList <Document>();
-	
-	//public VolatileVersionStrategy() {}
 		
 	public void putVersion(Document document) {
 		entireHistory.add(document);
