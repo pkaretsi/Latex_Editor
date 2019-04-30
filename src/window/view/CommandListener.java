@@ -17,7 +17,7 @@ public class CommandListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String toController = command + " " +e.getActionCommand();
+		String toController = command + " " + e.getActionCommand();
 		String addition = window.getController().enact(toController);
 		if(window.getController().getCurrentDocument().getDocumentType().equals("letter")){
 			JOptionPane.showMessageDialog(window, "You cannot add this LaTeX command in a letter!"); 
@@ -29,7 +29,7 @@ public class CommandListener implements ActionListener {
 		window.getTextArea().insert(addition, window.getTextArea().getCaretPosition());
 		//call enact again to save version after adding a latex command
 		toController = "Edit SaveVersion";
-		System.out.println("saveversion after command");
+		//System.out.println("saveversion after command");
 		window.getController().enact(toController);
 	}
 
