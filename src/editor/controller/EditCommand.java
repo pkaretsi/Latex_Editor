@@ -26,6 +26,10 @@ public class EditCommand implements Command{
 				Document newDocument = new Document(controller.getCurrentDocument());
 				int version;
 				try {
+				   /*System.out.println("New version, before adding size is: " + controller.getVersionManager().getStrategy().getEntireHistory().size());
+				   if(controller.getVersionManager().getStrategy().getEntireHistory().size()==0){
+					   controller.getVersionManager().setFirstVersion(controller.getCurrentDocument());
+				   }*/
 				   version = Integer.parseInt(newDocument.getVersionID()) + 1;
 				   //System.out.println("New version here " + version);
 				   newDocument.setVersionID(String.valueOf(version));
@@ -44,7 +48,14 @@ public class EditCommand implements Command{
 			//System.out.println("new hereee \n" + controller.getCurrentDocument().getContents());
 			controller.setStringReturned(controller.getCurrentDocument().getContents());
 		}
-		else{ //cut, copy, paste
+		else{ //cut, copy, paste, insertCaretPosition
+			if(controller.getVersionManager().getStrategy()!=null){
+				if(!controller.getCurrentDocument().isFirstChange()){
+					//System.out.println("\n\n\nChange text\n" + controller.getCurrentDocument().getContents()+"\n\n\n");
+					controller.getCurrentDocument().setFirstChange(true); //?not sure if always working correctly 
+					controller.getVersionManager().setFirstVersion(controller.getCurrentDocument().clone(controller.getCurrentDocument()));
+				}
+			}
 			controller.getCurrentDocument().setContents(text);
 			controller.setStringReturned(controller.getCurrentDocument().getContents());
 		}

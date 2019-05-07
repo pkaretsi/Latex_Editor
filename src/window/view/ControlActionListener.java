@@ -35,7 +35,7 @@ public class ControlActionListener implements ActionListener {
 			toController = action;
 			break;
 		case "Save":
-			
+			toController = action;
 			break;
 		case "Load":
 			//command = "Load";
