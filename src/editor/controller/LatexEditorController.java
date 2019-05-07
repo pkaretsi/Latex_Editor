@@ -5,6 +5,11 @@
 
 package editor.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import editor.model.Document;
@@ -24,8 +29,17 @@ public class LatexEditorController {
 	private String stringReturned;
 	private VersionManager versionManager;
 	private VersionStrategyFactory versionFactory;
+	private String lastContentsSaved = "";
 
 	
+	public String getLastContentsSaved() {
+		return lastContentsSaved;
+	}
+
+	public void setLastContentsSaved(String lastContentsSaved) {
+		this.lastContentsSaved = lastContentsSaved;
+	}
+
 	public String getStringReturned() {
 		return stringReturned;
 	}
@@ -90,5 +104,19 @@ public class LatexEditorController {
 		}
 		//System.out.println(currentDocument.getContents());
 		return stringReturned;
+	}
+	
+	public void removeHistory(){
+		//erases history versions saved in disk storage when
+		//having Stable Version Strategy and file is not saved
+		ArrayList<Document> docs = getVersionManager().getStrategy().getEntireHistory();
+		for(Document d : docs){
+			String date = d.getDate();
+			date = date.replaceAll("/", "");
+			String filename = "document"+ d.getVersionID() + "-" + date + ".tex";
+			File f;
+			f = new File(filename);
+			f.delete(); //delete files from disk
+		}
 	}
 }

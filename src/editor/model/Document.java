@@ -1,6 +1,9 @@
 package editor.model;
 //Based on version 1.0 with small changes at getters and setters and a copy constructor
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +16,7 @@ public class Document implements Serializable {
 	private String versionID;
 	private String DocumentType = "Other";
 	private String contents;
+	private boolean firstChange = false;
 
 	
 	//constructors
@@ -44,6 +48,14 @@ public class Document implements Serializable {
 		this.DocumentType=DocumentType;
 	}
 	
+	public boolean isFirstChange() {
+		return firstChange;
+	}
+	
+	public void setFirstChange(boolean firstChange) {
+		this.firstChange = firstChange;
+	}
+	
 	public String getDocumentType() {
 		return DocumentType;
 	}
@@ -55,7 +67,6 @@ public class Document implements Serializable {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	//setters & getters
 	
 	public String getAuthor() {
 		return author;
@@ -91,6 +102,17 @@ public class Document implements Serializable {
 		return deep_copy;	
 	}
 
-	public void save() {}
+	public void save(File fi) {
+		try { 
+			FileWriter wr = new FileWriter(fi, false); 
+			BufferedWriter w = new BufferedWriter(wr); 
+			w.write(contents); 
+			w.flush(); 
+			w.close(); 
+		} 
+		catch (Exception evt) { 
+			evt.printStackTrace();
+		} 
+	}
 	
 }

@@ -30,7 +30,7 @@ public class MainPanel extends JPanel{
 		welcomeW = w;
 		initNewPanel();
 	}
-	
+
 	private void createCommandList(JPanel p){
 		final JMenuBar commandsList = new JMenuBar();
 		commandsList.setBackground(new Color(248, 248, 255));
@@ -140,6 +140,8 @@ public class MainPanel extends JPanel{
 	    controlPanel.add(saveButton);
 	    controlPanel.add(rollbackButton);
 	    controlPanel.add(cancelRollbackButton);
+	    saveButton.addActionListener(new ControlActionListener(welcomeW));
+	    loadButton.addActionListener(new ControlActionListener(welcomeW));
 	    rollbackButton.addActionListener(new ControlActionListener(welcomeW));
 	    cancelRollbackButton.addActionListener(new ControlActionListener(welcomeW));
 	    //saveButton.addActionListener(new ControlActionListener(welcomeW));

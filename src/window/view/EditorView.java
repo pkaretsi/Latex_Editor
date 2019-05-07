@@ -4,12 +4,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import editor.controller.LatexEditorController;
+import editor.model.StableVersionStrategy;
 
 
 public class EditorView extends JFrame {
@@ -17,20 +20,37 @@ public class EditorView extends JFrame {
 	private JPanel windowPanel = new JPanel(new CardLayout());
 	private JTextArea textArea;
 	private LatexEditorController controller;
-
+	private boolean switched;
+	
 	public EditorView(){
 		super("Latex Editor");
 		controller = new LatexEditorController();
+		switched = false;
 		initComponents();
-		/*this.addWindowListener(new WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent e) {
-            super.windowClosing(e);
-            int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (ans == JOptionPane.YES_OPTION) {
-            	//When having an unsaved document, use this window closing
-            }
-        }
-      });*/
+		this.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(java.awt.event.WindowEvent e) {
+	        	if(switched){
+	        		if(!controller.getLastContentsSaved().equals(controller.getCurrentDocument().getContents())){
+	        			super.windowClosing(e);
+		                int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		                if (ans == JOptionPane.YES_OPTION) {
+		                	getController().enact("Save");
+		                }
+		                else{
+		                	if(getController().getVersionManager().isEnabled() &&
+		                			getController().getVersionManager().getStrategy() 
+		                			instanceof StableVersionStrategy){
+		                			getController().removeHistory();
+		                	}
+		                }
+	        		}
+	        	}
+	        }
+	   });
+	}
+	
+	public void setSwitched(boolean switched){
+		this.switched = switched;
 	}
 	
 	public JPanel getWindowPanel(){

@@ -22,5 +22,6 @@ public class FirstMenuItemListener implements ActionListener{
 		String textFile = window.getController().enact(action);
 		window.getTextArea().setText("");
 		window.getTextArea().setText(textFile);
+		window.setSwitched(true);
 	}
 }
