@@ -22,5 +22,6 @@ public class CreateCommand implements Command{
 		Document newDoc = controller.getDocumentManager().createDocument(tokens[1]);
 		controller.setCurrentDocument(newDoc);
 		controller.setStringReturned(controller.getCurrentDocument().getContents());
+		controller.setFirstDocument(newDoc.clone(newDoc));
 	}
 }

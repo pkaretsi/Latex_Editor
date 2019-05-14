@@ -23,6 +23,8 @@ public class SaveCommand implements Command {
 			File fi = new File(j.getSelectedFile().getAbsolutePath() + ".tex");
 			controller.getCurrentDocument().save(fi);
 			controller.setLastContentsSaved(controller.getCurrentDocument().getContents());
+			controller.setFirstDocument(controller.getCurrentDocument().clone(controller.getCurrentDocument()));
+			//every time you save permanently a document, update the first version of rollbacks 
 		}
 	}
 

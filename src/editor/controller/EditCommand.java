@@ -35,6 +35,7 @@ public class EditCommand implements Command{
 				   newDocument.setVersionID(String.valueOf(version));
 				   controller.getVersionManager().setCurrentVersion(controller.getCurrentDocument());
 				   controller.setCurrentDocument(newDocument);
+				   System.out.println("@@@" + controller.getCurrentDocument().getContents());
 				   System.out.println("Size is " + controller.getVersionManager().getStrategy().getEntireHistory().size());
 				}
 				catch (NumberFormatException e)
@@ -44,9 +45,9 @@ public class EditCommand implements Command{
 			}
 		}
 		else if(text.equals("Rollback")){
-		//else if(tokens[1].equals("Rollback")){
 			//System.out.println("new hereee \n" + controller.getCurrentDocument().getContents());
 			controller.setStringReturned(controller.getCurrentDocument().getContents());
+			return;
 		}
 		else{ //cut, copy, paste, insertCaretPosition
 			if(controller.getVersionManager().getStrategy()!=null){
@@ -57,8 +58,8 @@ public class EditCommand implements Command{
 				}
 			}
 			controller.getCurrentDocument().setContents(text);
-			controller.setStringReturned(controller.getCurrentDocument().getContents());
 		}
+		controller.setStringReturned(controller.getCurrentDocument().getContents());
 	}
 
 }

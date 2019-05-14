@@ -40,9 +40,6 @@ public class VersionManager {
 	}
 
 	public void setCurrentVersion(Document currentVersion) {
-		if(strategy.getEntireHistory().size()==0){
-			System.out.println("Size 0 in history");
-		}
 		strategy.putVersion(currentVersion);
 		this.currentVersion = currentVersion.clone(currentVersion);
 	}
@@ -69,19 +66,20 @@ public class VersionManager {
 			File f = new File(filename);
 			f.delete(); //delete file from disk
 		}
-		if(strategy.getEntireHistory().size()==1){
+		/*if
+		(strategy.getEntireHistory().size()==1){
 			strategy.removeVersion();
 			this.currentVersion = firstVersion.clone(firstVersion); 
 			//System.out.println(currentVersion.getContents() + " new heree");
 			//System.out.println("\n\n\n" + firstVersion.getContents() + "\n\n\n");
 		}
-		else{
+		else{*/
 			strategy.removeVersion();
 			Document previousd = strategy.getVersion(); //now the last one is the version we want to recover
 			this.currentVersion = previousd.clone(previousd); //clone because otherwise it passes a shallow copy
 			//Document previousd = getPreviousVersion(); //gets the last one not the second from the end :(
 			//setCurrentVersion(previousd); if setCurrent, 2 duplicates of the same thing in AL
-		}
+		//}
 	}
 
 	public Document getRollbackToNext() {
