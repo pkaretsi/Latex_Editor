@@ -28,6 +28,10 @@ public class CommandListener implements ActionListener {
 			JOptionPane.showMessageDialog(window, "You cannot add a chapter in an article!"); 
 			return;
 		}
+		//save previous content exactly before changing it
+		//window.getController().getVersionManager().setFirstVersion(window.getController().getCurrentDocument());
+		///////////////////////////////////////////////////
+		
 		window.getTextArea().insert(addition, window.getTextArea().getCaretPosition());
 		//call enact again to save version after adding a latex command
 		toController = "Edit SaveVersion";

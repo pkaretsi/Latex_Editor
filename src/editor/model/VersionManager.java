@@ -18,7 +18,7 @@ public class VersionManager {
 	}
 
 	public void setFirstVersion(Document firstVersion) {
-		this.firstVersion = firstVersion;
+		this.firstVersion = firstVersion.clone(firstVersion);
 	}
 
 	public VersionManager() {}
@@ -40,6 +40,9 @@ public class VersionManager {
 	}
 
 	public void setCurrentVersion(Document currentVersion) {
+		if(strategy.getEntireHistory().size()==0){
+			System.out.println("Size 0 in history");
+		}
 		strategy.putVersion(currentVersion);
 		this.currentVersion = currentVersion.clone(currentVersion);
 	}

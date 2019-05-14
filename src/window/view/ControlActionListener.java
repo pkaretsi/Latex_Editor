@@ -38,8 +38,7 @@ public class ControlActionListener implements ActionListener {
 			toController = action;
 			break;
 		case "Load":
-			//command = "Load";
-			toController = "Load" + " " + action;
+			toController = action;
 			break;
 		}
 		String afterExecution = window.getController().enact(toController);
@@ -52,6 +51,12 @@ public class ControlActionListener implements ActionListener {
 		}
 		else if(afterExecution.equals("Cancellation is not available")){
 			JOptionPane.showMessageDialog(window, afterExecution);
+		}
+		else if(afterExecution.equals("File loaded")){
+			String newContents = window.getController().getCurrentDocument().getContents();
+			window.getTextArea().setText(newContents);
+			toController = "Edit " + newContents;
+			window.getController().enact(toController);
 		}
 		else{
 			window.getTextArea().setText(afterExecution);
