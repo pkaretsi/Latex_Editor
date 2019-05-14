@@ -154,7 +154,7 @@ public class MainPanel extends JPanel{
         stableButton.setActionCommand("Stable");
         JRadioButton volatileButton = new JRadioButton("Volatile Strategy");
         volatileButton.setActionCommand("Volatile");
-        JButton saveVersionButton = new JButton("Save Version");
+        JButton saveVersionButton = new JButton("Submit Changes");
         saveVersionButton.setFont(new Font("Calibri", Font.PLAIN, 14));
         saveVersionButton.setActionCommand("SaveVersion");
 	    controlPanel.add(saveVersionButton);

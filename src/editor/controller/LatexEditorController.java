@@ -30,8 +30,17 @@ public class LatexEditorController {
 	private VersionManager versionManager;
 	private VersionStrategyFactory versionFactory;
 	private String lastContentsSaved = "";
+	private Document firstDocument;
 
 	
+	public Document getFirstDocument() {
+		return firstDocument;
+	}
+
+	public void setFirstDocument(Document firstDocument) {
+		this.firstDocument = firstDocument;
+	}
+
 	public String getLastContentsSaved() {
 		return lastContentsSaved;
 	}
@@ -102,7 +111,7 @@ public class LatexEditorController {
 		if(commands.get(tokens[0])!= null){
 			commands.get(tokens[0]).execute();
 		}
-		//System.out.println(currentDocument.getContents());
+		//System.out.println("HAHAHAHAHA\n"+ firstDocument.getContents());
 		return stringReturned;
 	}
 	
