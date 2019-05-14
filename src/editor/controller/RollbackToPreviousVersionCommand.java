@@ -26,7 +26,7 @@ public class RollbackToPreviousVersionCommand implements Command {
 			controller.setStringReturned("Mechanism has not been enabled yet");
 			return;
 		}
-		if(controller.getVersionManager().getStrategy().getEntireHistory().size()<1){
+		if(controller.getVersionManager().getStrategy().getEntireHistory().size()<=1){
 			controller.setStringReturned("Not enough versions to rollback");
 			return;
 		}

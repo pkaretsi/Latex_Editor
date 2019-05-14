@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class DocumentManager {
 	private HashMap <String, Document> templates = new HashMap <String, Document>();
-	private Document currentDocument = null;
+	//private Document currentDocument = null;
 	
 	public DocumentManager() {
 		loadPrototypes("prototypes.txt");
@@ -38,22 +38,25 @@ public class DocumentManager {
 	public void initial_doc(String docType, String prototypePath) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate localDate = LocalDate.now();
-		String author="Unknown";
-		String date=dtf.format(localDate);
-		String versionID="1";
-		String copyright="Unknown";
+		//String author = "Unknown";
+		String author = System.getProperty("user.name");
+		String date = dtf.format(localDate);
+		String versionID = "1";
+		String copyright = "Property of " + author;
 		
-		Scanner doc=null;
+		Scanner doc = null;
 		String content;
-		try {
+		try{
 			
-			doc= new Scanner(new FileInputStream(prototypePath));
+			doc = new Scanner(new FileInputStream(prototypePath));
 			
-		} catch (FileNotFoundException e) {
+		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		}
-		content="";
-		while(doc.hasNextLine()){ content =content+doc.nextLine()+"\n";}
+		content = "";
+		while(doc.hasNextLine()){ 
+			content = content + doc.nextLine() + "\n";
+		}
 		
 		Document newDoc = new Document(author,date,copyright,versionID,content,docType);
 		templates.put(docType,newDoc);
@@ -63,30 +66,35 @@ public class DocumentManager {
 		Document copy_doc= new Document(); // default constructor
 		switch(type) {
 		case "Article":
-			currentDocument = copy_doc.clone(templates.get("article"));
-			return currentDocument;
+			return copy_doc.clone(templates.get("article"));
+			//currentDocument = copy_doc.clone(templates.get("article"));
+			//return currentDocument;
 		case "Book":
-			currentDocument = copy_doc.clone(templates.get("book"));
-			return currentDocument;
+			return copy_doc.clone(templates.get("book"));
+			//currentDocument = copy_doc.clone(templates.get("book"));
+			//return currentDocument;
 		case "Letter":
-			currentDocument = copy_doc.clone(templates.get("letter"));
-			return currentDocument;
+			return copy_doc.clone(templates.get("letter"));
+			//currentDocument = copy_doc.clone(templates.get("letter"));
+			//return currentDocument;
 		case "Report":
-			currentDocument = copy_doc.clone(templates.get("report"));
-			return currentDocument;
+			return copy_doc.clone(templates.get("report"));
+			//currentDocument = copy_doc.clone(templates.get("report"));
+			//return currentDocument;
 		default:
-			currentDocument = copy_doc.clone(templates.get("other"));
-			return currentDocument;	
+			return copy_doc.clone(templates.get("other"));
+			//currentDocument = copy_doc.clone(templates.get("other"));
+			//return currentDocument;	
 		}
 	}
 	
-	public void setCurrentDocument(Document newd){
+	/*public void setCurrentDocument(Document newd){
 		currentDocument = newd;
-	}
+	}*/
 
-	public Document getCurrentDocument() {
+	/*public Document getCurrentDocument() {
 		return currentDocument;
-	}	
+	}	*/
 }
 
 
