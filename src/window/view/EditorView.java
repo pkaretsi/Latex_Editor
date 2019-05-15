@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import editor.controller.LatexEditorController;
+import editor.model.Document;
 import editor.model.StableVersionStrategy;
 
 
@@ -41,8 +45,14 @@ public class EditorView extends JFrame {
 		                			getController().getVersionManager().getStrategy() 
 		                			instanceof StableVersionStrategy){
 		                			getController().removeHistory();
+		                			//System.out.println("%%% " + getController().getVersionManager().getStrategy().getEntireHistory().size());
 		                	}
 		                }
+	        		}
+	        		if(getController().getVersionManager().isEnabled() &&
+		                			getController().getVersionManager().getStrategy() 
+		                			instanceof StableVersionStrategy){
+	        			getController().handleSavedHistory();
 	        		}
 	        	}
 	        }

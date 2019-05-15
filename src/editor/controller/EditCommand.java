@@ -50,13 +50,6 @@ public class EditCommand implements Command{
 			return;
 		}
 		else{ //cut, copy, paste, insertCaretPosition
-			if(controller.getVersionManager().getStrategy()!=null){
-				if(!controller.getCurrentDocument().isFirstChange()){
-					//System.out.println("\n\n\nChange text\n" + controller.getCurrentDocument().getContents()+"\n\n\n");
-					controller.getCurrentDocument().setFirstChange(true); //?not sure if always working correctly 
-					controller.getVersionManager().setFirstVersion(controller.getCurrentDocument().clone(controller.getCurrentDocument()));
-				}
-			}
 			controller.getCurrentDocument().setContents(text);
 		}
 		controller.setStringReturned(controller.getCurrentDocument().getContents());

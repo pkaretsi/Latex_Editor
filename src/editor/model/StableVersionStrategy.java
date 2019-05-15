@@ -34,7 +34,7 @@ public class StableVersionStrategy implements VersionStrategy {
 		String version = document.getVersionID();
 		String date = document.getDate();
 		date = date.replaceAll("/", "");
-		String filename = "document"+ version + "-" + date + ".tex";
+		String filename = "document"+ version + "-" + date + ".txt";
 		try{
 			FileOutputStream file = new FileOutputStream(filename);
 			ObjectOutputStream oos = new ObjectOutputStream(file);
@@ -63,7 +63,7 @@ public class StableVersionStrategy implements VersionStrategy {
 		for(Document d : eh){
 			String date = d.getDate();
 			date = date.replaceAll("/", "");
-			filename = "document"+ d.getVersionID() + "-" + date + ".tex";
+			filename = "document"+ d.getVersionID() + "-" + date + ".txt";
 			try{
 				file = new FileOutputStream(filename);
 				oos = new ObjectOutputStream(file);

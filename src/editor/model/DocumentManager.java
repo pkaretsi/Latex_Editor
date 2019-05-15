@@ -13,8 +13,21 @@ import java.util.HashMap;
 
 public class DocumentManager {
 	private HashMap <String, Document> templates = new HashMap <String, Document>();
+	private boolean loaded = false;
 	//private Document currentDocument = null;
 	
+	public HashMap<String, Document> getTemplates() {
+		return templates;
+	}
+
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public void setLoaded(boolean loaded) {
+		this.loaded = loaded;
+	}
+
 	public DocumentManager() {
 		loadPrototypes("prototypes.txt");
 	}

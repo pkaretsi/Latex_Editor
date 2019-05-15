@@ -11,15 +11,6 @@ public class VersionManager {
 	private boolean enabled;
 	private Document currentVersion;
 	private Document rollbackToNext;
-	private Document firstVersion; //
-	
-	public Document getFirstVersion() {
-		return firstVersion;
-	}
-
-	public void setFirstVersion(Document firstVersion) {
-		this.firstVersion = firstVersion.clone(firstVersion);
-	}
 
 	public VersionManager() {}
 	

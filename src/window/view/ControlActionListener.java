@@ -52,6 +52,9 @@ public class ControlActionListener implements ActionListener {
 		else if(afterExecution.equals("Cancellation is not available")){
 			JOptionPane.showMessageDialog(window, afterExecution);
 		}
+		else if(afterExecution.equals("Filename already exists")){
+			JOptionPane.showMessageDialog(window, afterExecution + ". Saving is cancelled.");
+		}
 		else if(afterExecution.equals("File loaded")){
 			String newContents = window.getController().getCurrentDocument().getContents();
 			window.getTextArea().setText(newContents);
@@ -63,21 +66,6 @@ public class ControlActionListener implements ActionListener {
 			toController = "Edit Rollback";
 			window.getController().enact(toController);
 		}
-		//window.getTextArea().selectAll();
-		//window.getTextArea().replaceSelection(afterExecution);
-		//window.getTextArea().setText(afterExecution);
-		//window.getTextArea().insert(afterExecution, window.getTextArea().getCaretPosition());
-		//call enact again to save version after adding a latex command
-		//toController = "Edit Rollback";
-		//System.out.println("saveversion after command");
-		//window.getController().enact(toController);
-		//window.getTextArea().setText("");
-		/*window.getTextArea().setText(afterExecution);
-		toController = "Edit Rollback";
-		System.out.println("To controller " + toController);
-		afterExecution = window.getController().enact(toController);
-		window.getTextArea().setText("");
-		window.getTextArea().setText(afterExecution);*/
 	}
 
 }
