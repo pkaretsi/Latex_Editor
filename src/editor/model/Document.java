@@ -16,17 +16,18 @@ public class Document implements Serializable {
 	private String versionID;
 	private String DocumentType = "Other";
 	private String contents;
-	private boolean firstChange = false;
+	//private boolean firstChange = false;
 
 	
 	//constructors
 	public Document(Document other){
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
-		LocalDateTime localDateTime = LocalDateTime.now();
+		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
+		//LocalDateTime localDateTime = LocalDateTime.now();
+		setCurrentDate();
 		this.author = other.author;
 		this.contents = other.contents;
 		this.copyright = other.copyright;
-		this.date = dtf.format(localDateTime);
+		//this.date = dtf.format(localDateTime);
 		this.DocumentType = other.DocumentType;
 		this.versionID = other.versionID;
 	}
@@ -41,20 +42,21 @@ public class Document implements Serializable {
 		
 	public Document(String author,String date,String copyright,String versionID,String contents,String DocumentType) {
 		this.author=author;
-		this.date=date;
-		this.copyright=copyright;
+		setCurrentDate();
+		//this.date=date;
+		this.copyright=copyright + author;
 		this.versionID=versionID;
 		this.contents=contents;
 		this.DocumentType=DocumentType;
 	}
 	
-	public boolean isFirstChange() {
+	/*public boolean isFirstChange() {
 		return firstChange;
 	}
 	
 	public void setFirstChange(boolean firstChange) {
 		this.firstChange = firstChange;
-	}
+	}*/
 	
 	public String getDocumentType() {
 		return DocumentType;
@@ -77,8 +79,10 @@ public class Document implements Serializable {
 	public String getDate() {
 		return date;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setCurrentDate() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
+		LocalDateTime localDateTime = LocalDateTime.now();
+		this.date = dtf.format(localDateTime);
 	}
 	public String getCopyright() {
 		return copyright;

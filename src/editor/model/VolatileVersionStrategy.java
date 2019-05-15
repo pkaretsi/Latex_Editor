@@ -31,7 +31,7 @@ public class VolatileVersionStrategy implements VersionStrategy {
 		for(Document d : eh){
 			String date = d.getDate();
 			date = date.replaceAll("/", "");
-			filename = "document"+ d.getVersionID() + "-" + date + ".tex";
+			filename = "document"+ d.getVersionID() + "-" + date + ".txt";
 			try{
 				file = new FileInputStream(filename);
 				in = new ObjectInputStream(file);

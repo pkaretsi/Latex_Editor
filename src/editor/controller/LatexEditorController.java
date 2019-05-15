@@ -7,6 +7,7 @@ package editor.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -31,8 +32,17 @@ public class LatexEditorController {
 	private VersionStrategyFactory versionFactory;
 	private String lastContentsSaved = "";
 	private Document firstDocument;
+	private String fileName="";
 
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String filePath) {
+		this.fileName = filePath;
+	}
+
 	public Document getFirstDocument() {
 		return firstDocument;
 	}
@@ -122,10 +132,31 @@ public class LatexEditorController {
 		for(Document d : docs){
 			String date = d.getDate();
 			date = date.replaceAll("/", "");
-			String filename = "document"+ d.getVersionID() + "-" + date + ".tex";
+			String filename = "document"+ d.getVersionID() + "-" + date + ".txt";
 			File f;
 			f = new File(filename);
 			f.delete(); //delete files from disk
 		}
+		docs.clear();
 	}
+	
+	public void handleSavedHistory(){
+		String pdir = System.getProperty("user.dir") + "\\" + fileName;
+		ArrayList<Document> docs = getVersionManager().getStrategy().getEntireHistory();
+		new File(pdir).mkdir();
+		for(Document d : docs){
+			String date = d.getDate();
+			date = date.replaceAll("/", "");
+			String filename = "document"+ d.getVersionID() + "-" + date + ".txt";		        			
+			File f;
+			f = new File(filename);
+			String filename2 = filename.replace("document", pdir + "\\document");
+			System.out.println(filename2);
+			File file2 = new File(filename2);
+			f.renameTo(file2);
+		}
+		
+	}
+	
+	
 }
