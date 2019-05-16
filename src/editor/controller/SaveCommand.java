@@ -4,9 +4,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
 public class SaveCommand implements Command {
-
 	private LatexEditorController controller;
 
 	public SaveCommand(LatexEditorController controller){
@@ -29,12 +27,8 @@ public class SaveCommand implements Command {
 			controller.setFileName(filename);
 			controller.getCurrentDocument().save(fi);
 			controller.setLastContentsSaved(controller.getCurrentDocument().getContents());
-			//controller.setFirstDocument(controller.getCurrentDocument().clone(controller.getCurrentDocument()));
-			//every time you save permanently a document, update the first version of rollbacks 
 		}
 	}
-	
-	//private void renameHistory
 
 }
 

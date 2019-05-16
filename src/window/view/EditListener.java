@@ -28,5 +28,4 @@ public class EditListener implements ActionListener {
 			window.getTextArea().selectAll();
 		}
     }    
-
 }

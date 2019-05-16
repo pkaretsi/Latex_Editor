@@ -1,5 +1,4 @@
 package editor.model;
-//Based on version 1.0 with small changes at getters and setters and a copy constructor
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,24 +9,22 @@ import java.time.format.DateTimeFormatter;
 
 public class Document implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String author;
 	private String date;
 	private String copyright;
 	private String versionID;
 	private String DocumentType = "Other";
 	private String contents;
-	//private boolean firstChange = false;
 
-	
-	//constructors
 	public Document(Document other){
-		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
-		//LocalDateTime localDateTime = LocalDateTime.now();
 		setCurrentDate();
 		this.author = other.author;
 		this.contents = other.contents;
 		this.copyright = other.copyright;
-		//this.date = dtf.format(localDateTime);
 		this.DocumentType = other.DocumentType;
 		this.versionID = other.versionID;
 	}
@@ -40,67 +37,16 @@ public class Document implements Serializable {
 		this.DocumentType="";
 	}
 		
-	public Document(String author,String date,String copyright,String versionID,String contents,String DocumentType) {
+	public Document(String author, String date, String copyright, String versionID, 
+			String contents, String DocumentType) {
 		this.author=author;
 		setCurrentDate();
-		//this.date=date;
 		this.copyright=copyright + author;
 		this.versionID=versionID;
 		this.contents=contents;
 		this.DocumentType=DocumentType;
 	}
 	
-	/*public boolean isFirstChange() {
-		return firstChange;
-	}
-	
-	public void setFirstChange(boolean firstChange) {
-		this.firstChange = firstChange;
-	}*/
-	
-	public String getDocumentType() {
-		return DocumentType;
-	}
-	
-	public String getContents() {
-		return contents;
-	}
-	
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setCurrentDate() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
-		LocalDateTime localDateTime = LocalDateTime.now();
-		this.date = dtf.format(localDateTime);
-	}
-	public String getCopyright() {
-		return copyright;
-	}
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
-	public String getVersionID() {
-		return versionID;
-	}
-	public void setVersionID(String versionID) {
-		this.versionID = versionID;
-	}
-	
-	public void setDocumentType(String documentType) {
-		DocumentType = documentType;
-	}
-
 	public Document clone (Document other) {
 		Document deep_copy = new Document(other);
 		return deep_copy;	
@@ -119,4 +65,34 @@ public class Document implements Serializable {
 		} 
 	}
 	
+	//Setters and Getters
+	public String getDocumentType() {
+		return DocumentType;
+	}
+	
+	public String getContents() {
+		return contents;
+	}
+	
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public String getDate() {
+		return date;
+	}
+	
+	public void setCurrentDate() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH-mm-ss");
+		LocalDateTime localDateTime = LocalDateTime.now();
+		this.date = dtf.format(localDateTime);
+	}
+	
+	public String getVersionID() {
+		return versionID;
+	}
+	
+	public void setVersionID(String versionID) {
+		this.versionID = versionID;
+	}
 }

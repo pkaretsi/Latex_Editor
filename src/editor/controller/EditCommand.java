@@ -20,23 +20,16 @@ public class EditCommand implements Command{
 		String tokens[] = action.split(" ");
 		String text = action.replace(tokens[0] + " ", "");
 		if(text.equals("SaveVersion")){
-		//if(tokens[1].equals("SaveVersion")){
 			if(controller.getVersionManager().isEnabled()){
-				//System.out.println("Should save a version now");
 				Document newDocument = new Document(controller.getCurrentDocument());
 				int version;
 				try {
-				   /*System.out.println("New version, before adding size is: " + controller.getVersionManager().getStrategy().getEntireHistory().size());
-				   if(controller.getVersionManager().getStrategy().getEntireHistory().size()==0){
-					   controller.getVersionManager().setFirstVersion(controller.getCurrentDocument());
-				   }*/
 				   version = Integer.parseInt(newDocument.getVersionID()) + 1;
-				   //System.out.println("New version here " + version);
 				   newDocument.setVersionID(String.valueOf(version));
 				   controller.getVersionManager().setCurrentVersion(controller.getCurrentDocument());
 				   controller.setCurrentDocument(newDocument);
-				   System.out.println("@@@" + controller.getCurrentDocument().getContents());
 				   System.out.println("Size is " + controller.getVersionManager().getStrategy().getEntireHistory().size());
+				   /////
 				}
 				catch (NumberFormatException e)
 				{
@@ -45,7 +38,6 @@ public class EditCommand implements Command{
 			}
 		}
 		else if(text.equals("Rollback")){
-			//System.out.println("new hereee \n" + controller.getCurrentDocument().getContents());
 			controller.setStringReturned(controller.getCurrentDocument().getContents());
 			return;
 		}

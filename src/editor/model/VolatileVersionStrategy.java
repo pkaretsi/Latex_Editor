@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class VolatileVersionStrategy implements VersionStrategy {
-
 	ArrayList<Document> entireHistory = new ArrayList <Document>();
 		
 	public void putVersion(Document document) {
@@ -27,7 +26,7 @@ public class VolatileVersionStrategy implements VersionStrategy {
 		FileInputStream file;
 		ObjectInputStream in;
 		Document doc;
-		entireHistory.clear(); //sets to empty history, ready for new additions?
+		entireHistory.clear();
 		for(Document d : eh){
 			String date = d.getDate();
 			date = date.replaceAll("/", "");
@@ -39,7 +38,7 @@ public class VolatileVersionStrategy implements VersionStrategy {
 				in.close();
 				file.close();
 				File f = new File(filename);
-				f.delete(); //delete files from disk
+				f.delete();
 				entireHistory.add(doc);
 			}
 			catch(IOException ex){ 
@@ -66,6 +65,11 @@ public class VolatileVersionStrategy implements VersionStrategy {
 	
 	public void removeVersion() {
 		entireHistory.remove(entireHistory.size()-1);
+	}
+	
+	public void initializeLoadedHistory(ArrayList<Document> history){
+		entireHistory.clear();
+		entireHistory = history;
 	}
 	
 }

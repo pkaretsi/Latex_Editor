@@ -9,7 +9,5 @@ public class VersionStrategyFactory {
 				return new VolatileVersionStrategy();
 			}
 			return null;
-		
 	}
-	
 }
