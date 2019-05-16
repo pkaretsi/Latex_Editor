@@ -6,10 +6,8 @@
 package editor.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,7 +32,68 @@ public class LatexEditorController {
 	private Document firstDocument;
 	private String fileName="";
 
+	public LatexEditorController(){
+		documentManager = new DocumentManager();
+		commandFactory = new CommandFactory();
+		commands = new HashMap<String, Command>();
+		versionManager = new VersionManager();
+		versionFactory = new VersionStrategyFactory();
+		initializeHashMap();
+	}
 	
+	private void initializeHashMap(){
+		for(int i=0; i<commandTypes.length; i++){
+			commands.put(commandTypes[i], commandFactory.createCommands(commandTypes[i], this));
+		}
+	}
+	
+	public String enact(String command){
+		guiAction = command;
+		String tokens[] = command.split(" ");
+		System.out.println("GUI " + guiAction);
+		if(commands.get(tokens[0])!= null){
+			commands.get(tokens[0]).execute();
+		}
+		return stringReturned;
+	}
+	
+	public void removeHistory(){
+		//erases history versions saved in disk storage when
+		//having Stable Version Strategy and file is not saved
+		ArrayList<Document> docs = getVersionManager().getStrategy().getEntireHistory();
+		for(Document d : docs){
+			String date = d.getDate();
+			date = date.replaceAll("/", "");
+			String filename = "document"+ d.getVersionID() + "-" + date + ".txt";
+			File f;
+			f = new File(filename);
+			f.delete();
+		}
+		docs.clear();
+	}
+	
+	public void handleSavedHistory(){
+		String pdir = System.getProperty("user.dir");
+		String filepath = pdir + "\\" + fileName + ".txt";
+		String historyname=""; 
+		ArrayList<Document> h = getVersionManager().getStrategy().getEntireHistory();
+		for(Document d : h){
+			String date = d.getDate();
+			date = date.replaceAll("/", "");
+			historyname = historyname + pdir + "\\" + "document"+ d.getVersionID() + "-" + date + ".txt\n";
+		}	
+		try{
+			PrintWriter out = new PrintWriter(filepath);
+			out.write(historyname);
+			out.flush();
+			out.close();
+		}
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	//Getters and setters
 	public String getFileName() {
 		return fileName;
 	}
@@ -98,65 +157,4 @@ public class LatexEditorController {
 	public VersionManager getVersionManager() {
 		return versionManager;
 	}
-
-	public LatexEditorController(){
-		documentManager = new DocumentManager();
-		commandFactory = new CommandFactory();
-		commands = new HashMap<String, Command>();
-		versionManager = new VersionManager();
-		versionFactory = new VersionStrategyFactory();
-		initializeHashMap();
-	}
-	
-	private void initializeHashMap(){
-		for(int i=0; i<commandTypes.length; i++){
-			commands.put(commandTypes[i], commandFactory.createCommands(commandTypes[i], this));
-		}
-	}
-	
-	public String enact(String command){
-		guiAction = command;
-		String tokens[] = command.split(" ");
-		System.out.println("GUI " + guiAction);
-		if(commands.get(tokens[0])!= null){
-			commands.get(tokens[0]).execute();
-		}
-		//System.out.println("HAHAHAHAHA\n"+ firstDocument.getContents());
-		return stringReturned;
-	}
-	
-	public void removeHistory(){
-		//erases history versions saved in disk storage when
-		//having Stable Version Strategy and file is not saved
-		ArrayList<Document> docs = getVersionManager().getStrategy().getEntireHistory();
-		for(Document d : docs){
-			String date = d.getDate();
-			date = date.replaceAll("/", "");
-			String filename = "document"+ d.getVersionID() + "-" + date + ".txt";
-			File f;
-			f = new File(filename);
-			f.delete(); //delete files from disk
-		}
-		docs.clear();
-	}
-	
-	public void handleSavedHistory(){
-		String pdir = System.getProperty("user.dir") + "\\" + fileName;
-		ArrayList<Document> docs = getVersionManager().getStrategy().getEntireHistory();
-		new File(pdir).mkdir();
-		for(Document d : docs){
-			String date = d.getDate();
-			date = date.replaceAll("/", "");
-			String filename = "document"+ d.getVersionID() + "-" + date + ".txt";		        			
-			File f;
-			f = new File(filename);
-			String filename2 = filename.replace("document", pdir + "\\document");
-			System.out.println(filename2);
-			File file2 = new File(filename2);
-			f.renameTo(file2);
-		}
-		
-	}
-	
-	
 }

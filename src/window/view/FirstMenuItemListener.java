@@ -11,9 +11,9 @@ public class FirstMenuItemListener implements ActionListener{
 		this.window = w;
 	}
 		
-		public void actionPerformed(ActionEvent e) {            
-			switchPanel(e);
-	    }    
+	public void actionPerformed(ActionEvent e) {            
+		switchPanel(e);
+	}    
 	
 	private void switchPanel(ActionEvent e){
 		CardLayout cardLayout = (CardLayout) window.getWindowPanel().getLayout();

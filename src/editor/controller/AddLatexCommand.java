@@ -37,14 +37,12 @@ public class AddLatexCommand implements Command {
 
 	@Override
 	public void execute() {
-		//versionKept = true;
 		String action = controller.getGuiAction();
 		String tokens[] = action.split(" ");
 		clearContent();
 		if(commandContents.containsKey(tokens[1])){
 			if(controller.getCurrentDocument().getDocumentType().equals("letter")){
 				//set pop up window and don't add anything
-				//System.out.println("Cannot add anything in a letter");
 				content = "";
 				controller.setStringReturned(content);
 				return;
@@ -52,7 +50,6 @@ public class AddLatexCommand implements Command {
 			if(controller.getCurrentDocument().getDocumentType().equals("article") 
 					&& tokens[1].equals("Chapter")){
 				//set pop up window and don't add anything
-				//System.out.println("Cannot add chapter in an article");
 				content = "";
 				controller.setStringReturned(content);
 				return;

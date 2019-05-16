@@ -5,15 +5,17 @@
 
 package window.view;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import editor.model.StableVersionStrategy;
+
 public class ControlActionListener implements ActionListener {
 
 	private EditorView window;
-	//String command;
 	
 	public ControlActionListener(EditorView w){
 		window = w;
@@ -25,7 +27,6 @@ public class ControlActionListener implements ActionListener {
 		String action = e.getActionCommand();
 		switch(action){
 		case "SaveVersion":
-			//command = "Edit";
 			toController = "Edit" + " " + action;
 			break;
 		case "Rollback":
@@ -38,6 +39,7 @@ public class ControlActionListener implements ActionListener {
 			toController = action;
 			break;
 		case "Load":
+			saveBeforeLoading();
 			toController = action;
 			break;
 		}
@@ -67,5 +69,26 @@ public class ControlActionListener implements ActionListener {
 			window.getController().enact(toController);
 		}
 	}
-
+	
+	private void saveBeforeLoading(){
+		if(!window.getController().getLastContentsSaved().equals(window.getController().getCurrentDocument().getContents())){
+            Component rootPane = null;
+			int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes before loading?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (ans == JOptionPane.YES_OPTION) {
+            	window.getController().enact("Save");
+            }
+            else{
+            	if(window.getController().getVersionManager().isEnabled() &&
+            			window.getController().getVersionManager().getStrategy() 
+            			instanceof StableVersionStrategy){
+            			window.getController().removeHistory();
+            	}
+            }
+		}
+		if(window.getController().getVersionManager().isEnabled() &&
+            			window.getController().getVersionManager().getStrategy() 
+            			instanceof StableVersionStrategy){
+			window.getController().handleSavedHistory();
+		}
+	}
 }

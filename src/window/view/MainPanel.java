@@ -24,6 +24,10 @@ import javax.swing.JLabel;
 
 
 public class MainPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EditorView welcomeW;
 
 	public MainPanel(EditorView w){
@@ -66,7 +70,6 @@ public class MainPanel extends JPanel{
 		commandsList.add(tableMenu);
 		commandsList.add(figureMenu);
 		p.add(commandsList,BorderLayout.WEST);
-		//getContentPane().add(commandsList, BorderLayout.WEST);
 		GridLayout grid = new GridLayout(0,1);
 		commandsList.setLayout(grid);
 		
@@ -94,7 +97,6 @@ public class MainPanel extends JPanel{
 	    GridLayout gridR = new GridLayout(0,1);
 		editCommands.setLayout(gridR);
 		
-		//set listeners for JMenuItems
 		chapterMenu.addActionListener(new CommandListener(welcomeW));
 		sectionMenu.addActionListener(new CommandListener(welcomeW));
 		subsectionMenu.addActionListener(new CommandListener(welcomeW));
@@ -118,8 +120,6 @@ public class MainPanel extends JPanel{
 	    fl_controlPanel.setAlignment(FlowLayout.LEFT);
 	    controlPanel.setLayout(fl_controlPanel);
 	    p.add(controlPanel, BorderLayout.NORTH);
-	    //JButton editButton = new JButton("Edit");
-	    //editButton.setFont(new Font("Calibri", Font.PLAIN, 14));
 	    JButton saveButton = new JButton("Save");
 	    saveButton.setFont(new Font("Calibri", Font.PLAIN, 14));
 	    JButton rollbackButton = new JButton("Rollback");
@@ -130,12 +130,7 @@ public class MainPanel extends JPanel{
 	    JButton cancelRollbackButton = new JButton("Cancel Rollback");
 	    cancelRollbackButton.setFont(new Font("Calibri", Font.PLAIN, 14));	
 	    cancelRollbackButton.setActionCommand("Rollback Cancel");
-	    //JButton createButton = new JButton("Create");
-	    //createButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-	    //controlPanel.add(createButton);
-	    
-	    //loadButton.setHorizontalAlignment(SwingConstants.LEFT);
-	    //controlPanel.add(editButton);
+
 	    controlPanel.add(loadButton);
 	    controlPanel.add(saveButton);
 	    controlPanel.add(rollbackButton);
@@ -144,8 +139,6 @@ public class MainPanel extends JPanel{
 	    loadButton.addActionListener(new ControlActionListener(welcomeW));
 	    rollbackButton.addActionListener(new ControlActionListener(welcomeW));
 	    cancelRollbackButton.addActionListener(new ControlActionListener(welcomeW));
-	    //saveButton.addActionListener(new ControlActionListener(welcomeW));
-	    //loadButton.addActionListener(new ControlActionListener(welcomeW));
 	    JCheckBox versionButton = new JCheckBox("Enable Version Tracking Mechanism");
 	    versionButton.setActionCommand("Enable VersionStrategy"); 
 	    versionButton.setSelected(false);
@@ -159,7 +152,7 @@ public class MainPanel extends JPanel{
         saveVersionButton.setActionCommand("SaveVersion");
 	    controlPanel.add(saveVersionButton);
 	    saveVersionButton.addActionListener(new ControlActionListener(welcomeW));
-        //Group the radio buttons.
+
         ButtonGroup group = new ButtonGroup();
         group.add(volatileButton);
         group.add(stableButton);
@@ -190,7 +183,6 @@ public class MainPanel extends JPanel{
 	        	vButton.setSelected(true);
 	        	action = "EnableVersionsManagement ";
 			}
-			//e.getStateChange = 1 refers to enabled and e.getStateChange = 2 refers to disabled  
 			welcomeW.getController().enact(action);
 		}
 		
@@ -204,7 +196,6 @@ public class MainPanel extends JPanel{
 			String action = "ChangeVersionsStrategy" + " " + e.getActionCommand();
 			welcomeW.getController().enact(action);
 		}
-		
 	}
 	
 	private JPanel initNewPanel(){
@@ -213,7 +204,8 @@ public class MainPanel extends JPanel{
 		createControlPanel(this);
 	    JTextArea ta = welcomeW.getTextArea();
 	    this.add(ta, BorderLayout.CENTER);
-	    JScrollPane scroll = new JScrollPane (ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	    JScrollPane scroll = new JScrollPane
+	    		(ta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 	    this.add(scroll);
 	    setVisible(true); 
 	    return this;

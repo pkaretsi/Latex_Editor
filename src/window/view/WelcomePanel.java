@@ -31,6 +31,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class WelcomePanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EditorView initialW;
 	
 	public WelcomePanel(EditorView w){
@@ -41,10 +45,10 @@ public class WelcomePanel extends JPanel{
 	private void initPanel(){	
 	    this.setBackground(new Color(95, 158, 160));
 	    try{
-	    	BufferedImage latexLogo = ImageIO.read(new File("latexLogo.jpg"));
+	    	BufferedImage latexLogo = ImageIO.read(new File("logo.png"));
 		    JLabel picLabel = new JLabel(new ImageIcon(latexLogo));
 			picLabel.setLabelFor(picLabel);
-			picLabel.setBounds(475, 267, 400, 195);
+			picLabel.setBounds(475, 267, 400, 300);
 			this.add(picLabel);
 	    }
 	    catch(IOException e){
@@ -60,7 +64,7 @@ public class WelcomePanel extends JPanel{
 		createMenu(this);
 	}
 
-private void createMenu(JPanel panel){
+	private void createMenu(JPanel panel){
 	   final JMenuBar menuBar = new JMenuBar();
 	   menuBar.setForeground(new Color(0, 0, 0));
 	   menuBar.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -90,7 +94,6 @@ private void createMenu(JPanel panel){
 	   emptyItem.setFont(new Font("Calibri", Font.PLAIN, 14));
 	   emptyItem.setActionCommand("Create Other");
 	    
-	    
 	    reportItem.addActionListener(new FirstMenuItemListener(initialW));
 	    bookItem.addActionListener(new FirstMenuItemListener(initialW));
 	    articleItem.addActionListener(new FirstMenuItemListener(initialW));
@@ -106,7 +109,6 @@ private void createMenu(JPanel panel){
 	    createMenu.add(emptyItem);
 
 	    menuBar.add(createMenu);
-	    //menuBar.add(loadMenu);
 		panel.add(menuBar, BorderLayout.NORTH);
 	    this.setVisible(true);   
    }
@@ -115,6 +117,7 @@ private void createMenu(JPanel panel){
 		return initialW;
 	}
 	
+	//////////////////////////////////
 	private class LoadFileListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -130,8 +133,6 @@ private void createMenu(JPanel panel){
 			int r = FileOpener.showOpenDialog(null); 
 			if (r == JFileChooser.APPROVE_OPTION) { 
 				File fload = new File(FileOpener.getSelectedFile().getAbsolutePath()); 
-				//CardLayout cardLayout = (CardLayout) window.getWindowPanel().getLayout();
-				//cardLayout.show(window.getWindowPanel(), "Panel after create command");
 				try { 
 	                CardLayout cardLayout = (CardLayout) initialW.getWindowPanel().getLayout();
 	    			cardLayout.show(initialW.getWindowPanel(), "Panel after create command");
@@ -142,14 +143,13 @@ private void createMenu(JPanel panel){
 		                }
 		                initialW.getTextArea().setText("");
 		                initialW.getTextArea().setText(buffer);
+		                scn.close();
 		            } catch (FileNotFoundException ex) {
 		                Logger.getLogger(EditorView.class.getName()).log(Level.SEVERE, null, ex);
 		            }
 				} 
 				catch (Exception evt) { 
 					System.out.println(evt.getMessage());
-					//evt.printStackTrace();
-					//should create document first before printing in textarea when loading
 					JOptionPane.showMessageDialog(f, evt.getMessage()); 
 				} 
 			} 

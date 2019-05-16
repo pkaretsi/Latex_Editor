@@ -5,9 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,12 +12,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import editor.controller.LatexEditorController;
-import editor.model.Document;
 import editor.model.StableVersionStrategy;
 
 
 public class EditorView extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel windowPanel = new JPanel(new CardLayout());
 	private JTextArea textArea;
 	private LatexEditorController controller;
@@ -36,7 +36,7 @@ public class EditorView extends JFrame {
 	        	if(switched){
 	        		if(!controller.getLastContentsSaved().equals(controller.getCurrentDocument().getContents())){
 	        			super.windowClosing(e);
-		                int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes ?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		                int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes before closing?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		                if (ans == JOptionPane.YES_OPTION) {
 		                	getController().enact("Save");
 		                }
@@ -45,7 +45,6 @@ public class EditorView extends JFrame {
 		                			getController().getVersionManager().getStrategy() 
 		                			instanceof StableVersionStrategy){
 		                			getController().removeHistory();
-		                			//System.out.println("%%% " + getController().getVersionManager().getStrategy().getEntireHistory().size());
 		                	}
 		                }
 	        		}
@@ -57,22 +56,6 @@ public class EditorView extends JFrame {
 	        	}
 	        }
 	   });
-	}
-	
-	public void setSwitched(boolean switched){
-		this.switched = switched;
-	}
-	
-	public JPanel getWindowPanel(){
-		return windowPanel;
-	}
-	
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-	public LatexEditorController getController(){
-		return controller;
 	}
 	
 	private void initComponents(){
@@ -94,5 +77,22 @@ public class EditorView extends JFrame {
         windowPanel.add(panelAfterCreate, "Panel after create command");
 	    setLocationRelativeTo(null); //set window at center of the screen
 	    setVisible(true); 
+	}
+	
+	//Setters and Getters
+	public void setSwitched(boolean switched){
+		this.switched = switched;
+	}
+	
+	public JPanel getWindowPanel(){
+		return windowPanel;
+	}
+	
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public LatexEditorController getController(){
+		return controller;
 	}
 }

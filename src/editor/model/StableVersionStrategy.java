@@ -1,33 +1,13 @@
 package editor.model;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class StableVersionStrategy implements VersionStrategy {
 	
 	ArrayList<Document> entireHistory= new ArrayList <Document>();
-	
-	/*public StableVersionStrategy() {}
-	
-	public void putVersion(Document document) {
-		entireHistory.add(document);
-		String version = document.getVersionID();
-		String date = document.getDate();
-		PrintWriter outputWriter = null;
-		try {
-			File fileOut = new File("document"+ version + "-" + date + ".tex");
-			outputWriter = new PrintWriter(fileOut);
-		}catch(FileNotFoundException e) {
-			System.out.println("Error opening file");
-			System.exit(0);
-		}
-		outputWriter.println(document.getContents());
-		outputWriter.close();
-	}*/
 		
 	public void putVersion(Document document) {
 		entireHistory.add(document);
@@ -59,7 +39,7 @@ public class StableVersionStrategy implements VersionStrategy {
 		String filename; 
 		FileOutputStream file; 
 		ObjectOutputStream oos;
-		entireHistory.clear(); //sets to empty history, ready for new additions?
+		entireHistory.clear();
 		for(Document d : eh){
 			String date = d.getDate();
 			date = date.replaceAll("/", "");
@@ -94,5 +74,8 @@ public class StableVersionStrategy implements VersionStrategy {
 		entireHistory.remove(entireHistory.size()-1);
 	}
 	
-
+	public void initializeLoadedHistory(ArrayList<Document> history){
+		entireHistory.clear();
+		entireHistory = history;
+	}
 }

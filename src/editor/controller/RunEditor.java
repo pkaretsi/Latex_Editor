@@ -1,3 +1,6 @@
+/*This file contains main function. 
+ * 
+ */
 package editor.controller;
 
 import window.view.EditorView;

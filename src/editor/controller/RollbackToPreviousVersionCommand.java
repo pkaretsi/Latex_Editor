@@ -1,7 +1,6 @@
 package editor.controller;
 
 public class RollbackToPreviousVersionCommand implements Command {
-	
 	private LatexEditorController controller;
 
 	public RollbackToPreviousVersionCommand(LatexEditorController controller){
@@ -10,8 +9,6 @@ public class RollbackToPreviousVersionCommand implements Command {
 
 	@Override
 	public void execute() {
-		//Supposed to rollback whenever there  is a version stored, although mechanism may not be enabled
-		//but you cannot save new versions
 		if(controller.getGuiAction().equals("Rollback Cancel")){
 			if(controller.getVersionManager().getRollbackToNext() == null){
 				controller.setStringReturned("Cancellation is not available");
@@ -33,7 +30,6 @@ public class RollbackToPreviousVersionCommand implements Command {
 		if(controller.getVersionManager().getStrategy().getEntireHistory().size()==1){
 			controller.getVersionManager().getStrategy().removeVersion();
 			controller.setCurrentDocument(controller.getFirstDocument().clone(controller.getFirstDocument()));
-			//controller.setStringReturned(controller.getCurrentDocument().getContents());
 		}else{
 			controller.getVersionManager().rollbackToPreviousVersion();
 			controller.setCurrentDocument(controller.getVersionManager().getCurrentVersion());
