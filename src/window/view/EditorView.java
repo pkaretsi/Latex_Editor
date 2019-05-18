@@ -7,12 +7,11 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import editor.controller.HistoryHandler;
 import editor.controller.LatexEditorController;
-import editor.model.StableVersionStrategy;
 
 
 public class EditorView extends JFrame {
@@ -26,36 +25,32 @@ public class EditorView extends JFrame {
 	private LatexEditorController controller;
 	private boolean switched;
 	
+	public boolean isSwitched() {
+		return switched;
+	}
+
 	public EditorView(){
 		super("Latex Editor");
 		controller = new LatexEditorController();
 		switched = false;
 		initComponents();
-		this.addWindowListener(new WindowAdapter() {
-	        public void windowClosing(java.awt.event.WindowEvent e) {
-	        	if(switched){
-	        		if(!controller.getLastContentsSaved().equals(controller.getCurrentDocument().getContents())){
-	        			super.windowClosing(e);
-		                int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes before closing?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		                if (ans == JOptionPane.YES_OPTION) {
-		                	getController().enact("Save");
-		                }
-		                else{
-		                	if(getController().getVersionManager().isEnabled() &&
-		                			getController().getVersionManager().getStrategy() 
-		                			instanceof StableVersionStrategy){
-		                			getController().removeHistory();
-		                	}
-		                }
-	        		}
-	        		if(getController().getVersionManager().isEnabled() &&
-		                			getController().getVersionManager().getStrategy() 
-		                			instanceof StableVersionStrategy){
-	        			getController().handleSavedHistory();
-	        		}
-	        	}
-	        }
-	   });
+		this.addWindowListener(new EditorWindowAdapter(this)); 
+	}
+	
+	private class EditorWindowAdapter extends WindowAdapter{
+		
+		private EditorView window;
+		
+		public EditorWindowAdapter(EditorView w){
+			window = w;
+		}
+		
+		public void windowClosing(java.awt.event.WindowEvent e) {
+        	if(window.isSwitched()){
+        		HistoryHandler hs = new HistoryHandler("closing", window);
+    			hs.saveAndHandleHistory();
+        	}
+		}
 	}
 	
 	private void initComponents(){
