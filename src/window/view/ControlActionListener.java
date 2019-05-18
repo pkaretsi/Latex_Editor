@@ -31,11 +31,14 @@ public class ControlActionListener implements ActionListener {
 		case "Rollback":
 			toController = action;
 			break;
-		case "Rollback Cancel":
+		case "CancelRollback":
 			toController = action;
 			break;
 		case "Save":
 			toController = action;
+			break;
+		case "Initial Load":
+			toController = "Load";
 			break;
 		case "Load":
 			HistoryHandler hs = new HistoryHandler("loading", window);
@@ -44,18 +47,24 @@ public class ControlActionListener implements ActionListener {
 			break;
 		}
 		String afterExecution = window.getController().enact(toController);
-		if(afterExecution.equals("Mechanism has not been enabled yet")){
+		if(afterExecution.equals("Operation cancelled")){
+			JOptionPane.showMessageDialog(window, afterExecution, "Warning", JOptionPane.INFORMATION_MESSAGE); 
+		}
+		else if(afterExecution.equals("Mechanism has not been enabled yet")){
 			JOptionPane.showMessageDialog(window, "Enable version tracking mechanism first"
-					+ " before trying to rollback."); 
+					+ " before trying to rollback.", "Warning", JOptionPane.INFORMATION_MESSAGE); 
 		}
 		else if(afterExecution.equals("Not enough versions to rollback")){
-			JOptionPane.showMessageDialog(window, "There are no versions available to rollback."); 
+			JOptionPane.showMessageDialog(window, "There are no versions available to rollback.",
+					"Warning", JOptionPane.INFORMATION_MESSAGE); 
 		}
-		else if(afterExecution.equals("Cancellation is not available")){
-			JOptionPane.showMessageDialog(window, afterExecution);
+		else if(afterExecution.equals("Cancellation is not available.")){
+			JOptionPane.showMessageDialog(window, afterExecution,
+					"Warning", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(afterExecution.equals("Filename already exists")){
-			JOptionPane.showMessageDialog(window, afterExecution + ". Saving is cancelled.");
+			JOptionPane.showMessageDialog(window, afterExecution + ". Saving is cancelled.",
+					"Warning", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(afterExecution.equals("File loaded")){
 			String newContents = window.getController().getCurrentDocument().getContents();

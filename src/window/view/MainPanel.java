@@ -129,7 +129,7 @@ public class MainPanel extends JPanel{
 	    
 	    JButton cancelRollbackButton = new JButton("Cancel Rollback");
 	    cancelRollbackButton.setFont(new Font("Calibri", Font.PLAIN, 14));	
-	    cancelRollbackButton.setActionCommand("Rollback Cancel");
+	    cancelRollbackButton.setActionCommand("CancelRollback");
 
 	    controlPanel.add(loadButton);
 	    controlPanel.add(saveButton);

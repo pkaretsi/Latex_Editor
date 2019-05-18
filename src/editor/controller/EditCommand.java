@@ -24,12 +24,17 @@ public class EditCommand implements Command{
 				Document newDocument = new Document(controller.getCurrentDocument());
 				int version;
 				try {
-				   version = Integer.parseInt(newDocument.getVersionID()) + 1;
-				   newDocument.setVersionID(String.valueOf(version));
-				   controller.getVersionManager().setCurrentVersion(controller.getCurrentDocument());
-				   controller.setCurrentDocument(newDocument);
-				   System.out.println("Size is " + controller.getVersionManager().getStrategy().getEntireHistory().size());
-				   /////
+					int size = controller.getVersionManager().getStrategy().getEntireHistory().size();
+					if(size != Integer.parseInt(controller.getCurrentDocument().getVersionID())-1){
+						version = Integer.parseInt(newDocument.getVersionID()) + 1;
+						controller.getCurrentDocument().setVersionID(String.valueOf(version));
+					}
+					version = Integer.parseInt(newDocument.getVersionID()) + 1;
+					newDocument.setVersionID(String.valueOf(version));
+					controller.getVersionManager().setCurrentVersion(controller.getCurrentDocument());
+					controller.setCurrentDocument(newDocument);
+					System.out.println("Size is " + controller.getVersionManager().getStrategy().getEntireHistory().size());
+					/////
 				}
 				catch (NumberFormatException e)
 				{

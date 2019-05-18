@@ -14,6 +14,7 @@ public class SaveCommand implements Command {
 	@Override
 	public void execute() {
 		JFileChooser j = new JFileChooser("C:"); 
+		j.setDialogTitle("Save As");
 		FileNameExtensionFilter texfilter = new FileNameExtensionFilter("LaTeX files", "tex");
         j.setFileFilter(texfilter);
 		int r = j.showSaveDialog(null); 

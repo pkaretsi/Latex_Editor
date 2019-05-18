@@ -18,15 +18,17 @@ public class VersionManager {
 		rollbackToNext = strategy.getVersion(); //version to be deleted
 		if(strategy instanceof StableVersionStrategy){
 			String filename; 
-			String date = rollbackToNext.getDate();
+			String date = strategy.getVersion().getDate();
 			date = date.replaceAll("/", "");
-			filename = "document"+ rollbackToNext.getVersionID() + "-" + date + ".tex";
+			filename = "document"+ strategy.getVersion().getVersionID() + "-" + date + ".txt";
 			File f = new File(filename);
 			f.delete();
 		}
 		strategy.removeVersion();
-		Document previousd = strategy.getVersion(); //now the last one is the version we want to recover
-		this.currentVersion = previousd.clone(previousd); //clone because otherwise it passes a shallow copy
+		if(strategy.getEntireHistory().size() != 0){
+			Document previousd = strategy.getVersion(); //now the last one is the version we want to recover
+			this.currentVersion = previousd.clone(previousd); //clone because otherwise it passes a shallow copy
+		}
 	}
 
 	public Document getRollbackToNext() {

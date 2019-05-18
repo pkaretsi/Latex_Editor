@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -69,11 +71,16 @@ public class WelcomePanel extends JPanel{
 	   menuBar.setForeground(new Color(0, 0, 0));
 	   menuBar.setFont(new Font("Calibri", Font.PLAIN, 16));
 	   menuBar.setBackground(new Color(192, 192, 192));
+	   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	   double width = screenSize.getWidth();
 	   JMenu createMenu = new JMenu("Create");
+	   createMenu.setPreferredSize(new Dimension((int)width/2, createMenu.getPreferredSize().height));
 	   createMenu.setHorizontalAlignment(SwingConstants.LEFT);
 	   createMenu.setForeground(new Color(0, 0, 0));
 	   createMenu.setFont(new Font("Calibri", Font.PLAIN, 16));
 	   final JMenuItem loadMenu = new JMenuItem("Load"); 
+	   loadMenu.setPreferredSize(new Dimension((int)width/2, loadMenu.getPreferredSize().height));
+	   loadMenu.setActionCommand("Initial Load");
 	   loadMenu.setHorizontalAlignment(SwingConstants.LEFT);
 	   loadMenu.setForeground(new Color(0, 0, 0));
 	   loadMenu.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -109,6 +116,7 @@ public class WelcomePanel extends JPanel{
 	    createMenu.add(emptyItem);
 
 	    menuBar.add(createMenu);
+	    menuBar.add(loadMenu);
 		panel.add(menuBar, BorderLayout.NORTH);
 	    this.setVisible(true);   
    }
@@ -117,45 +125,13 @@ public class WelcomePanel extends JPanel{
 		return initialW;
 	}
 	
-	//////////////////////////////////
 	private class LoadFileListener implements ActionListener{
 
-		public void actionPerformed(ActionEvent arg0) {
-			switchMenuPanel();
-		}
-
-		private void switchMenuPanel(){
-		    String buffer = "";
-			JFrame f = new JFrame();
-			JFileChooser FileOpener = new JFileChooser("f:"); 
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("LaTeX files", "tex");
-		    FileOpener.setFileFilter(filter);
-			int r = FileOpener.showOpenDialog(null); 
-			if (r == JFileChooser.APPROVE_OPTION) { 
-				File fload = new File(FileOpener.getSelectedFile().getAbsolutePath()); 
-				try { 
-	                CardLayout cardLayout = (CardLayout) initialW.getWindowPanel().getLayout();
-	    			cardLayout.show(initialW.getWindowPanel(), "Panel after create command");
-					try {
-		                Scanner scn = new Scanner(new FileInputStream(fload));
-		                while (scn.hasNext()) {
-		                    buffer += scn.nextLine() + "\n";
-		                }
-		                initialW.getTextArea().setText("");
-		                initialW.getTextArea().setText(buffer);
-		                scn.close();
-		            } catch (FileNotFoundException ex) {
-		                Logger.getLogger(EditorView.class.getName()).log(Level.SEVERE, null, ex);
-		            }
-				} 
-				catch (Exception evt) { 
-					System.out.println(evt.getMessage());
-					JOptionPane.showMessageDialog(f, evt.getMessage()); 
-				} 
-			} 
-			else{
-				JOptionPane.showMessageDialog(f, "Operation cancelled"); 
-			}
+		public void actionPerformed(ActionEvent e) {
+			CardLayout cardLayout = (CardLayout) initialW.getWindowPanel().getLayout();
+			cardLayout.show(initialW.getWindowPanel(), "Panel after create command");
+			ControlActionListener cal = new ControlActionListener(initialW);
+			cal.actionPerformed(e);
 		}
 	}
 }

@@ -42,8 +42,12 @@ public class LoadCommand implements Command {
 			String currentVersion = loadVersionHistory();
 			Document ld = new Document(System.getProperty("user.name"),"", "Property of ",
 					currentVersion, contents, type);
+			controller.setFirstDocument(ld.clone(ld));
 			controller.setCurrentDocument(ld);
 			controller.setStringReturned("File loaded");
+		}
+		else{
+			controller.setStringReturned("Operation cancelled");
 		}
 	}
 	
