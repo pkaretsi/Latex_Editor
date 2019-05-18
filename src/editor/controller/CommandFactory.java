@@ -30,6 +30,9 @@ public class CommandFactory {
 		else if(commandID.equalsIgnoreCase("Load")){
 			return new LoadCommand(controller);
 		}
+		else if(commandID.equalsIgnoreCase("CancelRollback")){
+			return new CancelRollbackCommand(controller);
+		}
 		return null;
 	}
 }

@@ -23,7 +23,7 @@ public class LatexEditorController {
 	private Document currentDocument = null;
 	private String commandTypes[] = {"Create", "Edit", "AddCommand", "EnableVersionsManagement",
 			"ChangeVersionsStrategy", "DisableVersionsManagement", "Rollback", 
-			"Save", "Load"};
+			"Save", "Load", "CancelRollback"};
 	private String guiAction;
 	private String stringReturned;
 	private VersionManager versionManager;

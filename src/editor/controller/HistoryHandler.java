@@ -18,6 +18,10 @@ public class HistoryHandler {
 	}
 	
 	public void saveAndHandleHistory(){
+		boolean saved = true;
+		if(window.getController().getCurrentDocument() == null){
+			
+		}
 		if(!window.getController().getLastContentsSaved().equals
 				(window.getController().getCurrentDocument().getContents())){
             Component rootPane = null;
@@ -27,6 +31,7 @@ public class HistoryHandler {
             	window.getController().enact("Save");
             }
             else{
+            	saved = false;
             	if(window.getController().getVersionManager().isEnabled() &&
             			window.getController().getVersionManager().getStrategy() 
             			instanceof StableVersionStrategy){
@@ -36,7 +41,7 @@ public class HistoryHandler {
 		}
 		if(window.getController().getVersionManager().isEnabled() &&
             			window.getController().getVersionManager().getStrategy() 
-            			instanceof StableVersionStrategy){
+            			instanceof StableVersionStrategy && saved){
 			window.getController().handleSavedHistory();
 		}
 	}
