@@ -25,10 +25,6 @@ public class EditorView extends JFrame {
 	private LatexEditorController controller;
 	private boolean switched;
 	
-	public boolean isSwitched() {
-		return switched;
-	}
-
 	public EditorView(){
 		super("Latex Editor");
 		controller = new LatexEditorController();
@@ -47,6 +43,7 @@ public class EditorView extends JFrame {
 		
 		public void windowClosing(java.awt.event.WindowEvent e) {
         	if(window.isSwitched()){
+        		System.out.println(window.getController().getLastContentsSaved());
         		HistoryHandler hs = new HistoryHandler("closing", window);
     			hs.saveAndHandleHistory();
         	}
@@ -75,6 +72,10 @@ public class EditorView extends JFrame {
 	}
 	
 	//Setters and Getters
+	public boolean isSwitched() {
+		return switched;
+	}
+	
 	public void setSwitched(boolean switched){
 		this.switched = switched;
 	}

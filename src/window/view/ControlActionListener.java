@@ -39,6 +39,7 @@ public class ControlActionListener implements ActionListener {
 			break;
 		case "Initial Load":
 			toController = "Load";
+			window.setSwitched(true);
 			break;
 		case "Load":
 			HistoryHandler hs = new HistoryHandler("loading", window);
