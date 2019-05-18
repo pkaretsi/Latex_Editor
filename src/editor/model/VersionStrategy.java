@@ -1,18 +1,33 @@
 package editor.model;
-
 import java.util.ArrayList;
 
-public interface VersionStrategy {
+//Template Pattern
+public abstract class VersionStrategy {
+	ArrayList<Document> entireHistory= new ArrayList <Document>();
 	
-	public void putVersion(Document document);
+	public Document getVersion() {
+		return entireHistory.get(entireHistory.size()-1);
+	}
 	
-	public Document getVersion();
+	public ArrayList<Document> getEntireHistory() {
+		return entireHistory;
+	}
 	
-	public void setEntireHistory(ArrayList<Document> history);
+	public void removeVersion() {
+		entireHistory.remove(entireHistory.size()-1);
+	}
+	
+	public void initializeLoadedHistory(ArrayList<Document> history){
+		entireHistory.clear();
+		entireHistory = history;
+	}
+	
+	public abstract void setEntireHistory(ArrayList<Document> history);
 
-	public ArrayList<Document> getEntireHistory();
+	public abstract void putVersion(Document document);
 	
-	public void removeVersion();
 	
-	public void initializeLoadedHistory(ArrayList<Document> history);
+	
+
+
 }
