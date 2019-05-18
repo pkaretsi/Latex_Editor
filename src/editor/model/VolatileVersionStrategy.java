@@ -1,26 +1,14 @@
 package editor.model;
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
-public class VolatileVersionStrategy implements VersionStrategy {
-	ArrayList<Document> entireHistory = new ArrayList <Document>();
-		
-	public void putVersion(Document document) {
-		entireHistory.add(document);
-	}
-	
-	public Document getVersion() {
-		return entireHistory.get(entireHistory.size()-1);
-	}
-	
-	public ArrayList<Document> getEntireHistory() {
-		return entireHistory;
-	}
+public class VolatileVersionStrategy extends VersionStrategy{
 
+	@Override
 	public void setEntireHistory(ArrayList<Document> eh) {
 		String filename; 
 		FileInputStream file;
@@ -62,14 +50,10 @@ public class VolatileVersionStrategy implements VersionStrategy {
             System.out.println("version = " + document.getVersionID());
 		}*/
 	}
-	
-	public void removeVersion() {
-		entireHistory.remove(entireHistory.size()-1);
+
+	@Override
+	public void putVersion(Document document) {
+		entireHistory.add(document);
 	}
-	
-	public void initializeLoadedHistory(ArrayList<Document> history){
-		entireHistory.clear();
-		entireHistory = history;
-	}
-	
+
 }

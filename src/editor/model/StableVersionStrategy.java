@@ -1,40 +1,13 @@
 package editor.model;
 
+import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
-public class StableVersionStrategy implements VersionStrategy {
-	
-	ArrayList<Document> entireHistory= new ArrayList <Document>();
-		
-	public void putVersion(Document document) {
-		entireHistory.add(document);
-		String version = document.getVersionID();
-		String date = document.getDate();
-		date = date.replaceAll("/", "");
-		String filename = "document"+ version + "-" + date + ".txt";
-		try{
-			FileOutputStream file = new FileOutputStream(filename);
-			ObjectOutputStream oos = new ObjectOutputStream(file);
-			oos.writeObject(document);
-			oos.close();
-			file.close();
-		}
-		catch(IOException ex){
-			ex.printStackTrace();
-		}
-	}
-	
-	public Document getVersion() {
-		return entireHistory.get(entireHistory.size()-1);
-	}
-	
-	public ArrayList<Document> getEntireHistory() {
-		return entireHistory;
-	}
+public class StableVersionStrategy extends VersionStrategy {
 
+	@Override
 	public void setEntireHistory(ArrayList<Document> eh) {
 		String filename; 
 		FileOutputStream file; 
@@ -68,14 +41,26 @@ public class StableVersionStrategy implements VersionStrategy {
             System.out.println("date = " + document.getDate());
             System.out.println("version = " + document.getVersionID());
 		}*/
+		
 	}
-	
-	public void removeVersion() {
-		entireHistory.remove(entireHistory.size()-1);
+
+	@Override
+	public void putVersion(Document document) {
+		entireHistory.add(document);
+		String version = document.getVersionID();
+		String date = document.getDate();
+		date = date.replaceAll("/", "");
+		String filename = "document"+ version + "-" + date + ".txt";
+		try{
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream oos = new ObjectOutputStream(file);
+			oos.writeObject(document);
+			oos.close();
+			file.close();
+		}
+		catch(IOException ex){
+			ex.printStackTrace();
+		}
 	}
-	
-	public void initializeLoadedHistory(ArrayList<Document> history){
-		entireHistory.clear();
-		entireHistory = history;
-	}
+
 }
