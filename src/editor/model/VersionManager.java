@@ -36,6 +36,9 @@ public class VersionManager {
 	}
 	
 	public void rollbackToNextVersion(){
+		if(strategy.getEntireHistory().size() == Integer.parseInt(rollbackToNext.getVersionID())){
+			rollbackToNext.setVersionID(String.valueOf(strategy.getEntireHistory().size()+1));
+		}
 		setCurrentVersion(rollbackToNext);
 		rollbackToNext = null;
 	}

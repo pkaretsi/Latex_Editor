@@ -19,30 +19,29 @@ public class HistoryHandler {
 	
 	public void saveAndHandleHistory(){
 		boolean saved = true;
-		if(window.getController().getCurrentDocument() == null){
-			
-		}
-		if(!window.getController().getLastContentsSaved().equals
-				(window.getController().getCurrentDocument().getContents())){
-            Component rootPane = null;
-			int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes before "
-            + action + "?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (ans == JOptionPane.YES_OPTION) {
-            	window.getController().enact("Save");
-            }
-            else{
-            	saved = false;
-            	if(window.getController().getVersionManager().isEnabled() &&
-            			window.getController().getVersionManager().getStrategy() 
-            			instanceof StableVersionStrategy){
-            			window.getController().removeHistory();
-            	}
-            }
-		}
-		if(window.getController().getVersionManager().isEnabled() &&
-            			window.getController().getVersionManager().getStrategy() 
-            			instanceof StableVersionStrategy && saved){
-			window.getController().handleSavedHistory();
+		if(window.getController().getCurrentDocument() != null){
+			if(!window.getController().getLastContentsSaved().equals
+					(window.getController().getCurrentDocument().getContents())){
+	            Component rootPane = null;
+				int ans = JOptionPane.showConfirmDialog(rootPane, "Save Changes before "
+	            + action + "?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (ans == JOptionPane.YES_OPTION) {
+	            	window.getController().enact("Save");
+	            }
+	            else{
+	            	saved = false;
+	            	if(window.getController().getVersionManager().isEnabled() &&
+	            			window.getController().getVersionManager().getStrategy() 
+	            			instanceof StableVersionStrategy){
+	            			window.getController().removeHistory();
+	            	}
+	            }
+			}
+			if(window.getController().getVersionManager().isEnabled() &&
+	            			window.getController().getVersionManager().getStrategy() 
+	            			instanceof StableVersionStrategy && saved){
+				window.getController().handleSavedHistory();
+			}
 		}
 	}
 }
