@@ -17,7 +17,7 @@ public class AddLatexCommandTestTableO {
 				+ "... &...&...\\\\\n \\hline\n\\end{tabular}\n\\end{table}";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("AddCommand Table");
-		Document newDoc = new Document("me", "today", "2", "unknown", "", "other");
+		Document newDoc = new Document("me", "unknown", "2", "", "other");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("AddCommand", controller);
 		command.execute();

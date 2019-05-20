@@ -15,7 +15,7 @@ public class AddLatexCommandTestBulletListB {
 		String latexCommand ="\\begin{itemize}\n\\item ...\n"+"\\item ...\n\\end{itemize}";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("AddCommand BulletList");
-		Document newDoc = new Document("me", "today", "2", "unknown", "", "book");
+		Document newDoc = new Document("me", "unknown", "2", "", "book");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("AddCommand", controller);
 		command.execute();

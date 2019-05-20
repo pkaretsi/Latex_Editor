@@ -15,7 +15,7 @@ public class AddLatexCommandTestEnumerationListO {
 		String latexCommand ="\\begin{enumerate}\n" + "\\item ...\n\\item ...\n\\end{enumerate}";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("AddCommand EnumerationList");
-		Document newDoc = new Document("me", "today", "2", "unknown", "", "other");
+		Document newDoc = new Document("me", "unknown", "2", "", "other");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("AddCommand", controller);
 		command.execute();

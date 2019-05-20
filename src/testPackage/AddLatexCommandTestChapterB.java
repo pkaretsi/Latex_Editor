@@ -15,7 +15,7 @@ public class AddLatexCommandTestChapterB {
 		String latexCommand ="\\chapter{...}";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("AddCommand Chapter");
-		Document newDoc = new Document("me", "today", "2", "unknown", "", "book");
+		Document newDoc = new Document("me", "unknown", "2", "", "book");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("AddCommand", controller);
 		command.execute();
