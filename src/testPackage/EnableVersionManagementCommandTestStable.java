@@ -14,7 +14,7 @@ public class EnableVersionManagementCommandTestStable {
 	@Test
 	public void test() {
 		LatexEditorController controller = new LatexEditorController();
-		Document newDoc = new Document("me", "today", "2", "unknown", "\\end{document}", "article");
+		Document newDoc = new Document("me", "unknown", "2", "\\end{document}", "article");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("EnableVersionsManagement", controller);
 		Command editCommand = controller.getCommandFactory().createCommands("Edit", controller);

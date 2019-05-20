@@ -20,7 +20,7 @@ public class EditCommandTestContent {
 		String text = articleContents + " title here";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("Edit " + text);
-		Document newDoc = new Document("me", "today", "2", "unknown", articleContents, "article");
+		Document newDoc = new Document("me", "unknown", "2", articleContents, "article");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("Edit", controller);
 		command.execute();

@@ -15,7 +15,7 @@ public class AddLatexCommandTestSubsectionA {
 		String latexCommand ="\\subsection{...}";
 		LatexEditorController controller = new LatexEditorController();
 		controller.setGuiAction("AddCommand Subsection");
-		Document newDoc = new Document("me", "today", "2", "unknown", "", "article");
+		Document newDoc = new Document("me", "unknown", "2", "", "article");
 		controller.setCurrentDocument(newDoc);
 		Command command = controller.getCommandFactory().createCommands("AddCommand", controller);
 		command.execute();
