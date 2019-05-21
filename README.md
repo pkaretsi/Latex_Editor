@@ -1,6 +1,6 @@
 # LatexEditor
 
-Implementation of Latex Editor during course Software Engineering at the University of Ioannina.
+Implementation of a Latex Editor during course Software Engineering at the University of Ioannina.
 
 ### Introduction
  
@@ -13,9 +13,3 @@ Latex is a well known high quality document preparation markup language [1,2,3,4
 ### Copyrights
 
 This software is implemented by Chaido Louka and Foteini Karetsi using Eclipse IDE, Java JDK 8.0 and Java SWING.
-
-### Releases
-
-**Version 1.0** Release: 19/04/2019 
-
-**Version 2.0** Release: 24/05/2019 
